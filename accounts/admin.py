@@ -1,3 +1,52 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+# CustomUserChangeFormをインポート
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import CustomUser
 
-# Register your models here.
+
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm  # form属性にCustomUserChangeFormを設定
+    model = CustomUser
+    list_display = ['email', 'is_staff', 'is_active']
+    search_fields = ('email',)
+    ordering = ('email',)
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
+         ),
+    )
+
+
+admin.site.register(CustomUser, CustomUserAdmin)
+
+
+# from django.contrib import admin
+# from django.contrib.auth.admin import UserAdmin
+# from .forms import CustomUserCreationForm, CustomUserChangeForm
+# from .models import CustomUser
+
+
+# class CustomUserAdmin(UserAdmin):
+#     add_form = CustomUserCreationForm
+#     form = CustomUserChangeForm
+#     model = CustomUser
+#     list_display = ['username', 'email', 'is_staff', 'is_active']
+#     list_filter = ['email', 'is_staff', 'is_active']
+#     fieldsets = UserAdmin.fieldsets + (
+#         (None, {'fields': ('email',)}),
+#     )
+#     add_fieldsets = UserAdmin.add_fieldsets + (
+#         (None, {'fields': ('email',)}),
+#     )
+#     search_fields = ['username', 'email']
+#     ordering = ['username', 'email']
+
+
+# admin.site.register(CustomUser, CustomUserAdmin)

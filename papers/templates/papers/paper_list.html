@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Papers List</title>
+</head>
+<body>
+    <h1>Papers List</h1>
+    <ul>
+        {% for paper in papers %}
+        <li>{{ paper.title }} by {{ paper.author }} ({{ paper.publication_date }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

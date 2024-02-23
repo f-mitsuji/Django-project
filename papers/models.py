@@ -6,7 +6,7 @@ class Paper(models.Model):
     author = models.CharField(max_length=255)
     abstract = models.TextField()
     published_at = models.DateField()
-    arxiv_url = models.CharField(max_length=255)
+    arxiv_url = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.title

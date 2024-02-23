@@ -1,9 +1,10 @@
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from .forms import PaperForm
-from .models import Paper
+from .forms import PaperForm, CommentForm
+from .models import Paper, Comment
 import urllib.request as request
 from dateutil import parser
 import feedparser
@@ -68,5 +69,19 @@ class PaperListView(ListView):
 
 class PaperDetailView(DetailView):
     model = Paper
-    template_name = 'papers/paper_detail.html'
     context_object_name = 'paper'
+    template_name = 'papers/paper_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.paper = self.get_object()
+            comment.author = request.user
+            comment.save()
+            return HttpResponseRedirect(self.request.path_info)

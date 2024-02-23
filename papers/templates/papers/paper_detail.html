@@ -6,5 +6,18 @@
   <p><strong>概要:</strong> {{ paper.abstract }}</p>
   <p><strong>投稿日:</strong> {{ paper.published_at }}</p>
 
-  <!--後で議論について-->
+  <hr>
+
+  <h2>議論スペース</h2>
+  {% for comment in paper.comments.all %}
+    <div>
+      <p>{{ comment.author.username }}: {{ comment.text }}</p>
+    </div>
+  {% endfor %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">送信</button>
+  </form>
 {% endblock %}

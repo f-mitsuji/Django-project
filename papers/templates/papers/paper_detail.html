@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ paper.title }}</h2>
+  <p><strong>著者:</strong> {{ paper.author }}</p>
+  <p><strong>概要:</strong> {{ paper.abstract }}</p>
+  <p><strong>投稿日:</strong> {{ paper.published_at }}</p>
+
+  <!--後で議論について-->
+{% endblock %}

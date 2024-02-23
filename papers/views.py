@@ -1,10 +1,14 @@
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
-import urllib.request as request
-import feedparser
-from .models import Paper
 from .forms import PaperForm
+from .models import Paper
+import urllib.request as request
 from dateutil import parser
+import feedparser
+
+# 後で適切なsleepを入れる
 
 
 def get_paper_info(arxiv_url):
@@ -54,3 +58,15 @@ class AddPaperView(FormView):
             print(f"論文の保存にエラー: {e}")
 
         return super().form_valid(form)
+
+
+class PaperListView(ListView):
+    model = Paper
+    template_name = 'papers/paper_list.html'
+    context_object_name = 'papers'
+
+
+class PaperDetailView(DetailView):
+    model = Paper
+    template_name = 'papers/paper_detail.html'
+    context_object_name = 'paper'

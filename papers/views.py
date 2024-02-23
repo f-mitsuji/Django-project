@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .forms import PaperForm, CommentForm
-from .models import Paper, Comment
+from .models import Paper
 import urllib.request as request
 from dateutil import parser
 import feedparser
@@ -35,7 +35,7 @@ def get_paper_info(arxiv_url):
 class AddPaperView(FormView):
     template_name = 'papers/add_paper.html'
     form_class = PaperForm
-    success_url = reverse_lazy('add_paper')
+    success_url = reverse_lazy('papers:add_paper')
 
     def form_valid(self, form):
         arxiv_url = form.cleaned_data.get('arxiv_url')

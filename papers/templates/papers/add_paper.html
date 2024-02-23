@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Add Paper</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="arxiv_url">arXiv URL:</label>
+    <input type="text" name="arxiv_url" required>
+    <button type="submit">Add Paper</button>
+  </form>
+  {% if error %}
+    <p>{{ error }}</p>
+  {% endif %}
+{% endblock %}

@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-</head>
-<body>
-    <h2>Sign Up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-    <a href="{% url 'accounts:login' %}">既にアカウントをお持ちの方</a>
-</body>
-</html>
+{% extends 'base.html' %} 
+
+{%block content %} 
+
+  <h2>アカウント登録</h2>
+  <form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">登録</button>
+	</form>
+	<a href="{% url 'accounts:login' %}">既にアカウントをお持ちの方</a>
+
+{% endblock %}

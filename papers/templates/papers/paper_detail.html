@@ -1,12 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %} {% load static %} {% block javascript %}
+  <script src="{% static 'js/comment.js' %}"></script>
+{% endblock %}
 
 {% block content %}
   <h2>{{ paper.title }}</h2>
-  <p><strong>著者:</strong> {{ paper.author }}</p>
-  <p><strong>概要:</strong> {{ paper.abstract }}</p>
-  <p><strong>投稿日:</strong> {{ paper.published_at }}</p>
 
-  <hr>
+  <p>
+    <strong>著者:</strong> {{ paper.author }}
+  </p>
+  <p>
+    <strong>概要:</strong> {{ paper.abstract }}
+  </p>
+  <p>
+    <strong>投稿日:</strong> {{ paper.published_at }}
+  </p>
+
+  <hr />
 
   <h2>議論スペース</h2>
   {% for comment in paper.comments.all %}
@@ -16,8 +25,7 @@
   {% endfor %}
 
   <form method="post">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit">送信</button>
+    {% csrf_token %} {{ comment_form.as_p }}
+    <button type="submit">Submit</button>
   </form>
 {% endblock %}

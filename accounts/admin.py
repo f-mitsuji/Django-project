@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+
 # CustomUserChangeFormをインポート
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 from .models import CustomUser
 
 
@@ -9,18 +10,15 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm  # form属性にCustomUserChangeFormを設定
     model = CustomUser
-    list_display = ['email', 'is_staff', 'is_active']
-    search_fields = ('email',)
-    ordering = ('email',)
+    list_display = ["email", "is_staff", "is_active"]
+    search_fields = ("email",)
+    ordering = ("email",)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        (None, {"fields": ("email", "password")}),
+        ("Permissions", {"fields": ("is_staff", "is_active")}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
-         ),
+        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2", "is_staff", "is_active")}),
     )
 
 

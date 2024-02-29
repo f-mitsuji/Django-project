@@ -1,5 +1,5 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 
 
 class Paper(models.Model):
@@ -14,10 +14,8 @@ class Paper(models.Model):
 
 
 class Comment(models.Model):
-    paper = models.ForeignKey(
-        Paper, on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments")
+    paper = models.ForeignKey(Paper, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments")
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
